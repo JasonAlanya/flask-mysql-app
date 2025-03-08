@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services.csv_data_loader import load_csv_to_db
+from app.services.csvDataLoader import load_csv_to_db
 
 uploads_bp = Blueprint("uploads", __name__)
 
