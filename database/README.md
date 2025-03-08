@@ -1,24 +1,46 @@
 # Database Setup Guide
 
-## Setting Up the Database Using MySQL Workbench
+## Overview
+This setup containerizes and start a MySQL 8.0 database with predefined tables and stored procedures for managing employee records. The database is dynamically configured using environment variables.
 
-### 1. Install MySQL Workbench
-- Download MySQL Workbench from the official website: [MySQL Download](https://dev.mysql.com/downloads/installer/)
-- Follow the installation steps based on your operating system.
+## Folder Structure
+```
+database/
+┣ mysql-init/
+┃ ┗ init.sql           # SQL script to create tables and stored procedures
+┣ .env                 # Environment variables file
+┣ dockerEntrypoint.sh  # Custom entrypoint script for MySQL container
+┣ dockerfile           # Dockerfile to build the MySQL image
+┗ README.md            # Documentation
+```
 
-### 2. Create the Database
-1. Open MySQL Workbench and connect to your MySQL server.
-2. Click on the "SQL Editor" to open a new query tab.
-3. Run the following SQL command to create the database if needed:
-   ```sql
-   CREATE DATABASE company_db;
-   USE company_db;
-   ```
+## Environment Variables (.env)
+Configure the following variables in the `.env` file:
+```
+MYSQL_ROOT_PASSWORD=rootpassword
+MYSQL_DATABASE=companydb
+API_USER=api_user
+API_PASSWORD=securepassword
+```
+An example is provided in `.env.example`.
 
-### 3. Execute the Schema
-1. In MySQL Workbench, open the `schema.sql` file.
-2. Ensure that the "company_db" database is selected.
-3. Click on the "Execute" button to run the script and create the tables.
+## Building the Docker Image
+Run the following command to build the MySQL image:
+```sh
+docker build -t my-company-db .
+```
 
-Once executed, your database will be set up and ready for use!
+## Running the MySQL Container
+Start the container using the environment variables from `.env`:
+```sh
+docker run --name mysql-container --env-file .env -p 3306:3306 -d my-company-db
+```
 
+## How It Works
+1. The **Dockerfile** copies the initialization script and sets up a custom entrypoint.
+2. The **dockerEntrypoint.sh** script:
+   - Starts MySQL in the background.
+   - Waits until MySQL is ready.
+   - Replaces placeholders in `init.sql` with environment variables.
+   - Executes `init.sql` to create tables, stored procedures, and a restricted API user.
+3. The container remains running with MySQL fully initialized.
