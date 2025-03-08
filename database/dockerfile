@@ -1,0 +1,16 @@
+FROM mysql:8.0
+
+# Copy the SQL script to a folder not automatically processed
+COPY mysql-init/init.sql /init-scripts/init.sql
+
+# Copy the custom entrypoint script
+COPY dockerEntrypoint.sh /usr/local/bin/
+
+# Ensure the script is executable
+RUN chmod +x /usr/local/bin/dockerEntrypoint.sh
+
+# Use the custom entrypoint script instead of the default
+ENTRYPOINT ["dockerEntrypoint.sh"]
+
+# Expose the MySQL port
+EXPOSE 3306
