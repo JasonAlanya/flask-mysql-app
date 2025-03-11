@@ -46,6 +46,17 @@ The API will start at `http://127.0.0.1:5000/`.
 
 ## API Endpoints
 
+### Employees
+| Method | Endpoint                 | Description |
+|--------|---------------------------|-------------|
+| GET    | `/employees/total`        | Get total number of employees |
+| GET    | `/employees/`             | Get all employees with pagination |
+| GET    | `/employees/<id>`         | Get a specific employee |
+| POST   | `/employees/`             | Create a new employee |
+| POST   | `/employees/upload`       | Upload a CSV file with employees |
+| PUT    | `/employees/<id>`         | Update an employee |
+| DELETE | `/employees/<id>`         | Delete an employee |
+
 ### Departments
 | Method | Endpoint                | Description |
 |--------|-------------------------|-------------|
@@ -66,21 +77,13 @@ The API will start at `http://127.0.0.1:5000/`.
 | PUT    | `/jobs/<id>`  | Update a job |
 | DELETE | `/jobs/<id>`  | Delete a job |
 
-### Employees
-| Method | Endpoint                   | Description |
-|--------|-----------------------------|-------------|
-| GET    | `/employees/`               | Get all employees |
-| GET    | `/employees/<id>`           | Get a specific employee |
-| POST   | `/employees/`               | Create a new employee |
-| POST   | `/employees/upload`         | Upload a CSV file with employees |
-| PUT    | `/employees/<id>`           | Update an employee |
-| DELETE | `/employees/<id>`           | Delete an employee |
-
 ### Reports
-| Method | Endpoint                         | Description |
-|--------|-----------------------------------|-------------|
-| GET    | `/reports/hired_per_quarter`     | Get number of employees hired per quarter in 2021 |
-| GET    | `/reports/departments_above_avg` | Get departments with hires above average |
+| Method | Endpoint                          | Description |
+|--------|----------------------------------|-------------|
+| GET    | `/reports/total_hired_per_quarter` | Get total number of employees hired per quarter |
+| GET    | `/reports/hired_per_quarter`      | Get employees hired per quarter with pagination |
+| GET    | `/reports/total_departments_above_avg` | Get total number of departments with hires above average |
+| GET    | `/reports/departments_above_avg`  | Get departments with hires above average with pagination |
 
 ## Running Tests
 To run unit tests, use:
