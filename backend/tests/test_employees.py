@@ -67,7 +67,7 @@ def test_create_employee_invalid_data(client):
     assert 'error' in response.json
 
 def test_get_employees(client, create_and_delete_entries):
-    response = client.get('/employees/')
+    response = client.get('/employees/', query_string={'page': 1, 'per_page': 10})
     assert response.status_code == 200
     assert isinstance(response.json, list)
 
