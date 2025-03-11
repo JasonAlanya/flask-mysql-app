@@ -1,7 +1,7 @@
 # Database Setup Guide
 
 ## Overview
-This setup containerizes and start a MySQL 8.0 database with predefined tables and stored procedures for managing employee records. The database is dynamically configured using environment variables.
+This setup containerizes and start a MySQL 8.0 database with predefined tables and views for managing employee records. The database is dynamically configured using environment variables.
 
 ## Folder Structure
 ```

@@ -8,6 +8,7 @@ until mysql -u root -p$MYSQL_ROOT_PASSWORD -e "SELECT 1"; do
     sleep 2
 done
 
+sed -i "s/{MYSQL_DATABASE}/$MYSQL_DATABASE/g" /init-scripts/init.sql
 sed -i "s/{API_USER}/$API_USER/g" /init-scripts/init.sql
 sed -i "s/{API_PASSWORD}/$API_PASSWORD/g" /init-scripts/init.sql
 
