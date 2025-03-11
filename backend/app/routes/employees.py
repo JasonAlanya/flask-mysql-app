@@ -6,6 +6,17 @@ from app.services.csvDataLoader import load_csv_to_db
 
 employees_bp = Blueprint("employees", __name__)
 
+@employees_bp.route("/total", methods=["GET"])
+async def get_total_employees():
+    """
+    Retrieve the total number of hired employees asynchronously.
+
+    Returns:
+        Response: JSON response containing the total number of employees or an error message.
+    """
+    result = await execute_query("SELECT count(*) AS total FROM hired_employees;", fetchall=True)
+    return jsonify(result), 200 if isinstance(result, list) else 500
+
 @employees_bp.route("/", methods=["GET"])
 async def get_employees():
     """
@@ -14,7 +25,21 @@ async def get_employees():
     Returns:
         Response: JSON response containing a list of employees or an error message.
     """
-    result = await execute_query("SELECT * FROM hired_employees;", fetchall=True)
+    page = int(request.args.get("page", 1))
+    per_page = int(request.args.get("per_page", 10))
+    offset = (page - 1) * per_page
+
+    result = await execute_query(f"""SELECT 
+                                    he.id, 
+                                    he.name, 
+                                    he.datetime, 
+                                    d.department, 
+                                    j.job 
+                                 FROM hired_employees he
+                                 LEFT JOIN departments d ON he.department_id = d.id
+                                 LEFT JOIN jobs j ON he.job_id = j.id
+                                 LIMIT {per_page} OFFSET {offset};
+                                 """, fetchall=True)
     return jsonify(result), 200 if isinstance(result, list) else 500
 
 @employees_bp.route("/<int:id>", methods=["GET"])
