@@ -15,6 +15,10 @@ async def get_total_employees():
         Response: JSON response containing the total number of employees or an error message.
     """
     result = await execute_query("SELECT count(*) AS total FROM hired_employees;", fetchall=True)
+
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 
 
 @employees_bp.route("/", methods=["GET"])

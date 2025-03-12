@@ -12,6 +12,10 @@ async def get_total_hired_per_quarter():
         Response: JSON response containing the total number of hired employees per quarter or an error message.
     """
     result = await execute_query("SELECT count(*) AS total FROM HiredEmployeesPerQuarter;", fetchall=True)
+
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 
 
 @reports_bp.route("/hired_per_quarter", methods=["GET"])
@@ -27,6 +31,10 @@ async def get_hired_per_quarter():
     offset = (page - 1) * per_page
 
     result = await execute_query(f"SELECT * FROM HiredEmployeesPerQuarter LIMIT {per_page} OFFSET {offset};", fetchall=True)
+    
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 
 
 @reports_bp.route("/total_departments_above_avg", methods=["GET"])
@@ -38,6 +46,10 @@ async def get_total_departments_above_avg():
         Response: JSON response containing the total number of departments or an error message.
     """
     result = await execute_query("SELECT count(*) AS total FROM DepartmentsAboveAvg;", fetchall=True)
+
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 
 
 @reports_bp.route("/departments_above_avg", methods=["GET"])
@@ -53,4 +65,8 @@ async def get_departments_above_avg():
     offset = (page - 1) * per_page
 
     result = await execute_query(f"SELECT * FROM DepartmentsAboveAvg LIMIT {per_page} OFFSET {offset};", fetchall=True)
+
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 

@@ -15,6 +15,10 @@ async def get_jobs():
         Response: JSON response containing a list of jobs or an error message.
     """
     result = await execute_query("SELECT * FROM jobs;", fetchall=True)
+
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 
 
 @jobs_bp.route("/<int:id>", methods=["GET"])

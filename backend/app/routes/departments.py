@@ -15,6 +15,10 @@ async def get_departments():
         Response: JSON response containing a list of departments or an error message.
     """
     result = await execute_query("SELECT * FROM departments;", fetchall=True)
+
+    if "error" in result:
+        return jsonify(result), 500
+    
     return jsonify(result), 200 
 
 @departments_bp.route("/<int:id>", methods=["GET"])
