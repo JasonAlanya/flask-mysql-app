@@ -9,7 +9,7 @@ This project consists of a REST API developed with Flask and MySQL for migrating
 
 ## Predefined Project Structure
 ```
-azure-flask-mysql-app/
+flask-mysql-app/
 │── backend/                # Flask API code
 │── frontend/               # Frontend code
 │── database/               # DDL and DML scripts for MySQL
@@ -19,15 +19,9 @@ azure-flask-mysql-app/
 
 ## Technologies Used
 - **Backend:** Flask, Python
-- **Frontend:** (To be defined)
+- **Frontend:** HTML, CSS, JS
 - **Database:** MySQL
 - **Deployment:** (To be defined)
-
-## Next Steps
-- Implement the API with Flask and MySQL.
-- Develop the frontend.
-- Add automated tests.
-- Containerize the solution and deploy it on Azure.
 
 ## Author
 - Jason Alanya
