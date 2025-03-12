@@ -1,0 +1,29 @@
+apiVersion: 2021-10-01
+location: eastus
+name: frontend-container-group
+properties:
+  osType: Linux
+  imageRegistryCredentials:
+  - server: <your-acr-name>.azurecr.io
+    username: <registry-username>
+    password: <registry-password>
+  containers:
+    - name: web-app
+      properties:
+        image: <your-acr-name>.azurecr.io/flask-mysql-app-frontend-app:latest
+        resources:
+          requests:
+            cpu: 1
+            memoryInGb: 1.5
+        ports:
+          - protocol: tcp
+            port: 80
+      
+  ipAddress:
+    type: Public
+    ports:
+      - protocol: tcp
+        port: 80
+        
+tags: {environment: development}
+type: Microsoft.ContainerInstance/containerGroups

@@ -1,0 +1,62 @@
+apiVersion: 2021-10-01
+location: eastus
+name: database-backend-container-group
+properties:
+  osType: Linux
+  imageRegistryCredentials:
+  - server: <your-acr-name>.azurecr.io
+    username: <registry-username>
+    password: <registry-password>
+  containers:
+    - name: flask-api
+      properties:
+        image: <your-acr-name>.azurecr.io/flask-mysql-app-flask-api:latest
+        environmentVariables:
+          - name: DB_HOST
+            value: "localhost"
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_USER
+            value: "<api_user>"
+          - name: DB_PASSWORD
+            value: "<db-password>"
+          - name: DB_NAME
+            value: "companydb"
+        resources:
+          requests:
+            cpu: 1
+            memoryInGb: 1.5
+        ports:
+          - protocol: tcp
+            port: 5000
+
+    - name: mysql-db
+      properties:
+        image: <your-acr-name>.azurecr.io/flask-mysql-app-mysql-db:latest
+        environmentVariables:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "<mysql-root-password>"
+          - name: MYSQL_DATABASE
+            value: "companydb"
+          - name: API_USER
+            value: "api_user"
+          - name: API_PASSWORD
+            value: "<api-password>"
+        resources:
+          requests:
+            cpu: 1
+            memoryInGb: 2
+        ports:
+          - protocol: tcp
+            port: 3306
+      
+  ipAddress:
+    type: Public
+    ports:
+      - protocol: tcp
+        port: 5000
+      - protocol: tcp
+        port: 3306
+
+tags: {environment: development}
+type: Microsoft.ContainerInstance/containerGroups

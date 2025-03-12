@@ -1,0 +1,50 @@
+services:
+  frontend-app:
+    build:
+      context: ./frontend
+    container_name: frontend-container
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+    depends_on:
+      - flask-api
+
+  flask-api:
+    build:
+      context: ./backend
+    container_name: flask-container
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    build:
+      context: ./database
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      API_USER: ${API_USER}
+      API_PASSWORD: ${API_PASSWORD}
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local

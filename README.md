@@ -1,7 +1,7 @@
 # Project: Flask MySQL App
 
 ## Description
-This project consists of a REST API developed with Flask and MySQL for migrating historical data from CSV files. Additionally, a user-friendly web frontend will be implemented for data visualization. Initially, the project will be executed locally and later deployed on the cloud.
+This project consists of a REST API developed with Flask and MySQL for migrating historical data from CSV files. Additionally, a user-friendly web frontend was implemented for data visualization. The project can be executed locally or deployed on the cloud.
 
 ## Features
 - Loading historical data from CSV files into a MySQL database.
@@ -13,6 +13,7 @@ flask-mysql-app/
 │── backend/                # Flask API code
 │── frontend/               # Frontend code
 │── database/               # DDL and DML scripts for MySQL
+│── DeploymentGuide.md      # Guide to deploy this project
 │── .gitignore              # Ignore unnecessary files in Git
 │── README.md               # General project documentation
 ```
@@ -21,7 +22,7 @@ flask-mysql-app/
 - **Backend:** Flask, Python
 - **Frontend:** HTML, CSS, JS
 - **Database:** MySQL
-- **Deployment:** (To be defined)
+- **Deployment:** Azure
 
 ## Author
 - Jason Alanya
