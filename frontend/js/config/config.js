@@ -1,4 +1,4 @@
-export const API_URL = 'http://20.253.27.22:5000'; //change this for production
+export const API_URL = 'http://127.0.0.1:5000'; //change this for production
 
 export const uploadButtons = {
     departments: document.getElementById('upload-btn-departments'),
