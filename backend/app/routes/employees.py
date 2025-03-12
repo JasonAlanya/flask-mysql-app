@@ -15,7 +15,7 @@ async def get_total_employees():
         Response: JSON response containing the total number of employees or an error message.
     """
     result = await execute_query("SELECT count(*) AS total FROM hired_employees;", fetchall=True)
-    return jsonify(result), 200 if isinstance(result, list) else 500
+    return jsonify(result), 200 
 
 @employees_bp.route("/", methods=["GET"])
 async def get_employees():
@@ -40,7 +40,7 @@ async def get_employees():
                                  LEFT JOIN jobs j ON he.job_id = j.id
                                  LIMIT {per_page} OFFSET {offset};
                                  """, fetchall=True)
-    return jsonify(result), 200 if isinstance(result, list) else 500
+    return jsonify(result), 200 
 
 @employees_bp.route("/<int:id>", methods=["GET"])
 async def get_employee(id):
